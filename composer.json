@@ -1,0 +1,63 @@
+{
+    "name": "{{composer_user}}/{{composer_project}}",
+    "description": "",
+    "keywords": [],
+    "type": "project",
+    "license": "Unlicense",
+    "authors": [
+        {
+            "name": "{{composer_author}}",
+            "email": "{{composer_email}}"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "{{composer_namespace}}\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "{{composer_namespace}}\\Tests\\": "tests/"
+        }
+    },
+    "require": { "php": "^8.0" },
+    "require-dev": {
+        "infection/infection":       "^0.21.0",
+        "phpmd/phpmd":               "^2.9",
+        "phpro/grumphp":             "^1.0",
+        "phpstan/phpstan":           "^0.12",
+        "phpunit/phpunit":           "^9.5",
+        "squizlabs/php_codesniffer": "^3.5",
+        "vimeo/psalm":               "^4.4",
+        "friendsofphp/php-cs-fixer": "^2.18"
+    },
+    "scripts": {
+        "test": [
+            "@phpunit",
+            "@infection"
+        ],
+
+        "lint": [
+            "@phpcs",
+            "@phpstan",
+            "@psalm",
+            "@phpmd"
+        ],
+
+        "format": [
+            "@phpcsfixer",
+            "@phpcbf"
+        ],
+
+        "phpunit":    "phpunit --colors=always",
+        "phpstan":    "phpstan analyse src --ansi --level=8",
+        "phpcs":      "phpcs --colors",
+        "phpcbf":     "phpcbf --colors",
+        "phpcsfixer": "php-cs-fixer fix --diff-format=udiff --dry-run --show-progress=dots --using-cache=no --verbose src",
+        "psalm":      "psalm --shepherd",
+        "phpmd":      "phpmd src ansi phpmd.xml",
+        "infection":  "XDEBUG_MODE=coverage infection"
+    }
+}
