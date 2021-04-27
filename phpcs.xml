@@ -1,9 +1,11 @@
 <?xml version="1.0"?>
-<ruleset name="<project>">
-        <description>Coding standard for <project>.</description>
-    <config name="zend_ca_path" value="/path/to/ZendCodeAnalyzer" />
+<ruleset name="{{github_project}}">
+    <description>Coding standard for {{github_project}}.</description>
+
     <file>src</file>
     <arg name="extensions" value="php" />
 
+    <rule ref="PSR1" />
+    <rule ref="PSR2" />
     <rule ref="PSR12" />
 </ruleset>
