@@ -1,0 +1,98 @@
+name: CI
+
+on:
+  push:
+    branches: [ development ]
+  pull_request:
+    branches: [ development ]
+
+jobs:
+  coding-guidelines:
+    name: Coding Guidelines
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          tools: composer:v2
+          coverage: none
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install composer dependencies
+        run: composer install --no-interaction --no-ansi --no-progress
+
+      - name: Run PHP-CS-Fixer
+        run: composer phpcsfixer
+
+      - name: Run PHPCBF
+        run: composer phpcbf
+
+  static-analysis:
+    name: Static Analysis
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install composer dependencies
+        run: composer install --no-interaction --no-ansi --no-progress
+
+      - name: Run PHPCS
+        run: composer phpcs
+
+      - name: Run PHPStan
+        run: composer phpstan
+
+      - name: Run Psalm
+        run: composer psalm
+
+      - name: Run PHP Mess Detector
+        run: composer phpmd
+
+  unit-testing:
+    name: Unit Testing
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.0"
+          tools: composer:v2
+          coverage: xdebug
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Install composer dependencies
+        run: composer install --no-interaction --no-ansi --no-progress
+
+      - name: Run unit tests
+        run: composer phpunit
+
+      - name: Run infection tests
+        run: composer infection

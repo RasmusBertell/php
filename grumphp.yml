@@ -1,0 +1,5 @@
+grumphp:
+    tasks:
+        composer: ~
+        composer_script:
+            script: lint
