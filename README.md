@@ -9,7 +9,12 @@ Template for PHP projects.
 
 ## Usage
 
-Replace template variables with corresponding values.
+Replace template variables with corresponding values using for example the
+following command.
+
+```
+find ./ -type f -exec sed -i 's/{{variable}}/Replacement/g' {} \;
+```
 
 ### Template Variables
 
