@@ -1,0 +1,21 @@
+{
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "timeout": 10,
+    "logs": {
+        "text": "cache\/infection\/infection.log",
+        "summary": "cache\/infection\/summary.log",
+        "json": "cache\/infection\/infection-log.json",
+        "perMutator": "cache\/infection\/per-mutator.md",
+        "github": true,
+        "badge": {
+            "branch": "{{github_default_branch}}"
+        }
+    },
+    "mutators": {
+        "@default": true
+    }
+}
